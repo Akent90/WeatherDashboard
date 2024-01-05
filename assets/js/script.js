@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addToHistory(cityName) {
-        if (!Array.from(historylist.children).some(item => item.textContent === cityName)) {
-            const newCity = document.createEmelent('li');
+        if (!Array.from(historyList.children).some(item => item.textContent === cityName)) {
+            const newCity = document.createElement('li');
             newCity.textContent = cityName;
             historyList.appendChild(newCity);
         }
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function saveHistory() {
-        const cities = Array.from(hisotryList.children).map(li => li.textContent);
+        const cities = Array.from(historyList.children).map(li => li.textContent);
         localStorage.setItem('weatherDashboardHistory', JSON.stringify(cities));
     }
 
