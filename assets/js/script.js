@@ -42,4 +42,15 @@ document.addEventListener('DOMContentLoaded', function(){
             })
             .catch(error => console.error('Error:', error));
     }    
+
+    function fetchForecast(lat, lon){
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displayForecast(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
 })
