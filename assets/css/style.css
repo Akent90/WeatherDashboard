@@ -2,15 +2,15 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: #f2f2f2;
+    background: #e7ecef;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 header {
-    background-color: #4b0082;
-    color: #fff;
+    background-color: #003366;
+    color: #ffffff;
     padding: 20px 0;
     text-align: center;
     font-size: 2em;
@@ -19,7 +19,7 @@ header {
 main {
     width: 80%;
     margin: 20px auto;
-    background: #fff;
+    background: #ffffff;
     padding: 20px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
     flex: 1;
@@ -38,21 +38,21 @@ main {
 .search-bar input[type="text"] {
     width: 70%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #003366;
     border-radius: 5px;
 }
 
 .search-bar button {
     padding: 10px 20px;
-    background-color: #4b0082;
-    color: white;
+    background-color: #003366;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .search-bar button:hover {
-    background-color: #3a0066;
+    background-color: #002244;
 }
 
 #currentWeather {
@@ -60,19 +60,15 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #f8f8f8;
+    background: #dde1e3;
     padding: 10px;
-    border-left: 5px solid #4b0082;
+    border-left: 5px solid #003366;
     margin-bottom: 20px;
 }
 
-.weather-header {
-    text-align: center;
-}
-
+.weather-header h3,
 .weather-info p {
-    margin: 5px 0;
-    text-align: center;
+    color: #003366;
 }
 
 #forecast {
@@ -82,14 +78,14 @@ main {
 }
 
 .forecast-day {
-    background: #e8e8e8;
+    background: #cfd4d7;
     padding: 10px;
     text-align: center;
     border-radius: 5px;
 }
 
 #history {
-    background: #e8e8e8;
+    background: #cfd4d7;
     padding: 10px;
     border-radius: 5px;
 }
@@ -100,19 +96,20 @@ main {
 }
 
 #historyList li {
-    background: #ccc;
+    background: #b2babb;
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 5px;
     cursor: pointer;
+    color: #003366;
 }
 
 #historyList li:hover {
-    background: #bbb;
+    background: #99a3a4;
 }
 
 footer {
-    background-color: #4b0082;
+    background-color: #003366;
     color: #fff;
     text-align: center;
     padding: 10px 0;

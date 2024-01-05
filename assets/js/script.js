@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const cityName = searchInput.value;
         fetchCoordinates(cityName);
+        searchInput.value = '';
     }
 
     function fetchCoordinates(cityName) {
@@ -22,9 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data && data.length > 0) {
                     const { lat, lon } = data[0];
-                    fetchCurrentWeather(lat, lon);
-                    fetchForecast(lat, lon);
-                    addToHistory(cityName);
+                    fetchWeather(lat, lon, cityName);
                 } else {
                     console.error('City not found');
                 }
@@ -32,13 +31,21 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error:', error));
     }
 
-    function fetchCurrentWeather(lat, lon) {
+    function fetchWeather(lat, lon, cityName) {
+        fetchCurrentWeather(lat, lon, cityName);
+        fetchForecast(lat, lon);
+    }
+
+    function fetchCurrentWeather(lat, lon, cityName) {
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
         
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 displayCurrentWeather(data);
+                if (!cityAlreadyInHistory(cityName)) {
+                    addToHistory(cityName);
+                }
             })
             .catch(error => console.error('Error:', error));
     }
@@ -59,15 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
         currentWeatherDiv.innerHTML = `
-            <div class="weather-header">
-                <h3>Current Weather in ${data.name} (${date})</h3>
-                <img src="${iconUrl}" alt="Weather Icon"
-            </div>
-            <div class="weather-info">
-                <p>Temperature: ${data.main.temp} °F</p>
-                <p>Humidity: ${data.main.humidity}%</p>
-                <p>Wind Speed: ${data.wind.speed} mph</p>
-            </div>
+            <h3>Current Weather in ${data.name} (${date})</h3>
+            <img src="${iconUrl}" alt="Weather Icon"
+            <p>Temperature: ${data.main.temp} °F</p>
+            <p>Humidity: ${data.main.humidity}%</p>
+            <p>Wind Speed: ${data.wind.speed} mph</p>
         `;
     }
 
@@ -95,6 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function addToHistory(cityName) {
         const newCity = document.createElement('li');
         newCity.textContent = cityName;
+        newCity.addEventListener('click', function() {
+            fetchCoordinates(cityName);
+        });
         historyList.appendChild(newCity);
+    }
+
+    function cityAlreadyInHistory(cityName) {
+        return Array.from(historyList.children).some(cityLi => cityLi.textContent === cityName);
     }
 });
