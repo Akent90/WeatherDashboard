@@ -62,4 +62,21 @@ document.addEventListener('DOMContentLoaded', function(){
         <p>Wind Speed: ${data.wind.speed} mph/h</p>
         `;
     }
+
+    function displayForecast(data) {
+        let forecastHTML = '<h3>5-Day Forecast</h3>';
+        data.list.forEach((forecast, index) => {
+            if (index % 8 === 0) {
+                forecastHTML += `
+                <div>
+                    <h4>${new Date(forecast.dt_txt).toLocaleDateString()}</h4>
+                    <p>Temp: ${forecast.main.temp} °F</p>
+                    <p>Humidity: ${forecast.main.humidity}%</p>
+                </div>
+                `;
+            }
+        });
+        forecastDiv.innerHTML = forecastHTML;
+    }
+
 })
