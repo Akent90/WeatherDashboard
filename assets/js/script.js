@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const historyList = document.getElementById('historyList');
     const apiKey = 'e5d02244f2fdf8cc53a789407a0475c6';
 
-    loadHistory();
     searchForm.addEventListener('submit', handleSearch);
-    historyList.addEventListener('click', handleHistoryClick);
 
     function handleSearch(event) {
         event.preventDefault();
@@ -24,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data && data.length > 0) {
                     const { lat, lon } = data[0];
-                    fetchCurrentWeather(cityName, lat, lon); 
+                    fetchCurrentWeather(lat, lon);
+                    fetchForecast(lat, lon);
+                    addToHistory(cityName);
                 } else {
                     console.error('City not found');
                 }
@@ -32,26 +32,20 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error:', error));
     }
 
-    function fetchWeatherData(cityName, lat, lon) {
-        fetchCurrentWeather(lat, lon);
-        fetchForecast(lat, lon);
-        addToHistory(cityName);
-    }
-
     function fetchCurrentWeather(lat, lon) {
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
-
+        
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 displayCurrentWeather(data);
             })
             .catch(error => console.error('Error:', error));
-    }    
+    }
 
-    function fetchForecast(lat, lon){
+    function fetchForecast(lat, lon) {
         const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
-
+        
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -62,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayCurrentWeather(data) {
         currentWeatherDiv.innerHTML = `
-        <h3>Current Weather in ${data.name}</h3>
-        <p>Temperature: ${data.main.temp} °F</p>
-        <p>Humidity: ${data.main.humidity}%</p>
-        <p>Wind Speed: ${data.wind.speed} mph/h</p>
+            <h3>Current Weather in ${data.name}</h3>
+            <p>Temperature: ${data.main.temp} °F</p>
+            <p>Humidity: ${data.main.humidity}%</p>
+            <p>Wind Speed: ${data.wind.speed} mph</p>
         `;
     }
 
@@ -86,33 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addToHistory(cityName) {
-        if (!Array.from(historyList.children).some(item => item.textContent === cityName)) {
-            const newCity = document.createElement('li');
-            newCity.textContent = cityName;
-            historyList.appendChild(newCity);
-        }
-        saveHistory();  
-    }
-
-    function saveHistory() {
-        const cities = Array.from(historyList.children).map(li => li.textContent);
-        localStorage.setItem('weatherDashboardHistory', JSON.stringify(cities));
-    }
-
-    function loadHistory() {
-        const savedCities = JSON.parse(localStorage.getItem('weatherDashboardHistory'));
-        if (savedCities) {
-            savedCities.forEach(cityName => {
-                const newCity = document.createElement('li');
-                newCity.textContent = cityName;
-                historyList.appendChild(newCity);
-            });
-        }
-    }
-
-    function handleHistoryCLick(event) {
-        if (event.target.tagName === 'LI') {
-            fetchCoordinates(event.target.textContent);
-        }
+        const newCity = document.createElement('li');
+        newCity.textContent = cityName;
+        historyList.appendChild(newCity);
     }
 });
