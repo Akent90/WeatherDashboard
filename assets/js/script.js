@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function fetchCurrentWeather(lat, lon) {
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
 
         fetch(url)
             .then(response => response.json())
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }    
 
     function fetchForecast(lat, lon){
-        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
 
         fetch(url)
             .then(response => response.json())
@@ -52,5 +52,14 @@ document.addEventListener('DOMContentLoaded', function(){
                 displayForecast(data);
             })
             .catch(error => console.error('Error:', error));
+    }
+
+    function displayCurrentWeather(data) {
+        currentWeatherDiv.innerHTML = `
+        <h3>Current Weather in ${data.name}</h3>
+        <p>Temperature: ${data.main.temp} °F</p>
+        <p>Humidity: ${data.main.humidity}%</p>
+        <p>Wind Speed: ${data.wind.speed} mph/h</p>
+        `;
     }
 })
