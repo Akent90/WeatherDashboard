@@ -57,3 +57,16 @@ main {
     border-left: 5px solid #4b0082;
     margin-bottom: 20px;
 }
+
+#forecast {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.forecast-day {
+    background: #e8e8e8;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
