@@ -71,11 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
         let forecastHTML = '<h3>5-Day Forecast</h3>';
         data.list.forEach((forecast, index) => {
             if (index % 8 === 0) {
+                const date = new Date(forecast.dt_txt).toLocaleDateString();
+                const iconUrl = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+
                 forecastHTML += `
                     <div>
-                        <h4>${new Date(forecast.dt_txt).toLocaleDateString()}</h4>
+                        <h4>${date}</h4>
+                        <img src="${iconUrl}" alt="Weather Icon">
                         <p>Temp: ${forecast.main.temp} °F</p>
                         <p>Humidity: ${forecast.main.humidity}%</p>
+                        <p>Wind Speed: ${forecast.wind.speed} mph</p>
                     </div>
                 `;
             }
