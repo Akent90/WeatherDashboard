@@ -55,8 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayCurrentWeather(data) {
+        const date = new Date().toLocaleDateString();
+        const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+
         currentWeatherDiv.innerHTML = `
             <h3>Current Weather in ${data.name}</h3>
+            <img src="${iconUrl}" alt="Weather Icon"
             <p>Temperature: ${data.main.temp} °F</p>
             <p>Humidity: ${data.main.humidity}%</p>
             <p>Wind Speed: ${data.wind.speed} mph</p>
