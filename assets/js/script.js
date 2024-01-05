@@ -6,5 +6,13 @@ document.addEventListener('DOMContentLoaded', function(){
     const historyList = document.getElementById('historyList');
     const apiKey = 'e5d02244f2fdf8cc53a789407a0475c6';
 
+    searchForm.addEventListener('submit', handleSearch);
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const cityName = searchInput.value;
+        fetchCoordinates(cityName);
+    }
+
     
 })
