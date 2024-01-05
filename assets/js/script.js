@@ -79,4 +79,10 @@ document.addEventListener('DOMContentLoaded', function(){
         forecastDiv.innerHTML = forecastHTML;
     }
 
+    function addToHistory(cityName) {
+        const newCity = document.createEmelent('li');
+        newCity.textContent = cityName;
+        historyList.appendChild(newCity);
+    }
+
 })
