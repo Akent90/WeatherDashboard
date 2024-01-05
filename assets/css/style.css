@@ -70,3 +70,26 @@ main {
     text-align: center;
     border-radius: 5px;
 }
+
+#history {
+    background: #e8e8e8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#historyList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#historyList li {
+    background: #ccc;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#historyList li:hover {
+    background: #bbb;
+}
