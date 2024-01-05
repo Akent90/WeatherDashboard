@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
     const searchInput = document.getElementById('searchInput');
     const currentWeatherDiv = document.getElementById('currentWeather');
@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const historyList = document.getElementById('historyList');
     const apiKey = 'e5d02244f2fdf8cc53a789407a0475c6';
 
+    loadHistory();
     searchForm.addEventListener('submit', handleSearch);
+    historyList.addEventListener('click', handleHistoryClick);
 
     function handleSearch(event) {
         event.preventDefault();
@@ -22,14 +24,18 @@ document.addEventListener('DOMContentLoaded', function(){
             .then(data => {
                 if (data && data.length > 0) {
                     const { lat, lon } = data[0];
-                    fetchCurrentWeather(lat, lon);
-                    fetchForecast(lat, lon);
-                    addToHistory(cityName); 
+                    fetchCurrentWeather(cityName, lat, lon); 
                 } else {
                     console.error('City not found');
                 }
             })
             .catch(error => console.error('Error:', error));
+    }
+
+    function fetchWeatherData(cityName, lat, lon) {
+        fetchCurrentWeather(lat, lon);
+        fetchForecast(lat, lon);
+        addToHistory(cityName);
     }
 
     function fetchCurrentWeather(lat, lon) {
@@ -68,11 +74,11 @@ document.addEventListener('DOMContentLoaded', function(){
         data.list.forEach((forecast, index) => {
             if (index % 8 === 0) {
                 forecastHTML += `
-                <div>
-                    <h4>${new Date(forecast.dt_txt).toLocaleDateString()}</h4>
-                    <p>Temp: ${forecast.main.temp} °F</p>
-                    <p>Humidity: ${forecast.main.humidity}%</p>
-                </div>
+                    <div>
+                        <h4>${new Date(forecast.dt_txt).toLocaleDateString()}</h4>
+                        <p>Temp: ${forecast.main.temp} °F</p>
+                        <p>Humidity: ${forecast.main.humidity}%</p>
+                    </div>
                 `;
             }
         });
@@ -80,14 +86,16 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function addToHistory(cityName) {
-        const newCity = document.createEmelent('li');
-        newCity.textContent = cityName;
-        historyList.appendChild(newCity);
+        if (!Array.from(historylist.children).some(item => item.textContent === cityName)) {
+            const newCity = document.createEmelent('li');
+            newCity.textContent = cityName;
+            historyList.appendChild(newCity);
+        }
+        saveHistory();  
     }
 
     function saveHistory() {
-        const cities = [];
-        document.querySelectorAll('#histoeyList li').forEach(li => cities.push(li.textContent));
+        const cities = Array.from(hisotryList.children).map(li => li.textContent);
         localStorage.setItem('weatherDashboardHistory', JSON.stringify(cities));
     }
 
@@ -102,11 +110,9 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
-    function addToHistory(cityName) {
-        const newCity = document.createElement('li');
-        newCity.textContent = cityName;
-        historyList.appendChild(newCity);
-        saveHistory();
+    function handleHistoryCLick(event) {
+        if (event.target.tagName === 'LI') {
+            fetchCoordinates(event.target.textContent);
+        }
     }
-
-})
+});
