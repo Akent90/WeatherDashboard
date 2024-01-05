@@ -85,4 +85,28 @@ document.addEventListener('DOMContentLoaded', function(){
         historyList.appendChild(newCity);
     }
 
+    function saveHistory() {
+        const cities = [];
+        document.querySelectorAll('#histoeyList li').forEach(li => cities.push(li.textContent));
+        localStorage.setItem('weatherDashboardHistory', JSON.stringify(cities));
+    }
+
+    function loadHistory() {
+        const savedCities = JSON.parse(localStorage.getItem('weatherDashboardHistory'));
+        if (savedCities) {
+            savedCities.forEach(cityName => {
+                const newCity = document.createElement('li');
+                newCity.textContent = cityName;
+                historyList.appendChild(newCity);
+            });
+        }
+    }
+
+    function addToHistory(cityName) {
+        const newCity = document.createElement('li');
+        newCity.textContent = cityName;
+        historyList.appendChild(newCity);
+        saveHistory();
+    }
+
 })
