@@ -32,5 +32,14 @@ document.addEventListener('DOMContentLoaded', function(){
             .catch(error => console.error('Error:', error));
     }
 
-    
+    function fetchCurrentWeather(lat, lon) {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displayCurrentWeather(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }    
 })
