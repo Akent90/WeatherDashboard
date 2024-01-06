@@ -28,3 +28,7 @@ This project was informed and improved by the following resources:
 - .some structure : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
 - Arrow function expressions: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 - Fetch and .then method: https://www.geeksforgeeks.org/javascript-fetch-method/
+
+## ## Mock-Up
+
+The following image shows the web application's appearance and functionality:
