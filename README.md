@@ -29,6 +29,9 @@ This project was informed and improved by the following resources:
 - Arrow function expressions: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 - Fetch and .then method: https://www.geeksforgeeks.org/javascript-fetch-method/
 
-## ## Mock-Up
+## Mock-Up
 
 The following image shows the web application's appearance and functionality:
+
+- Screenshot of app ![Weather Dashboard Deployed App](WeatherDashboard/assets/images/DeployedApp.png)
+- Link to deployed web app: https://akent90.github.io/WeatherDashboard/
