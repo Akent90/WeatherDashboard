@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchCoordinates(cityName) {
-        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`;
+        const url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`;
 
         fetch(url)
             .then(response => response.json())
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayCurrentWeather(data) {
         const date = new Date().toLocaleDateString();
-        const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+        const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
         currentWeatherDiv.innerHTML = `
             <h3>Current Weather in ${data.name} (${date})</h3>
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         data.list.forEach((forecast, index) => {
             if (index % 8 === 0) {
                 const date = new Date(forecast.dt_txt).toLocaleDateString();
-                const iconUrl = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+                const iconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
 
                 forecastHTML += `
                     <div>
